@@ -9,10 +9,10 @@ movies_df = pickle.load(open('movies.pkl','rb'))
 
 similarity = pickle.load(open('similarity.pkl','rb'))
 
-def fetch_poster(movie_id):
-    response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=dc35e67a529e6e6265a4d325eb09bdfa&language=en-US'.format(movie_id))
-    data = response.json()
-    return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
+# def fetch_poster(movie_id):
+#     response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=dc35e67a529e6e6265a4d325eb09bdfa&language=en-US'.format(movie_id))
+#     data = response.json()
+#     return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
 
 def recommend(movie):
     movie_index = movies_df[movies_df['title'] == movie].index[0]
@@ -24,7 +24,7 @@ def recommend(movie):
     for i in movies_list:
         movie_id = movies_df.iloc[i[0]].movie_id
         recommended_movies.append(movies_df.iloc[i[0]]['title'])
-        recommended_movies_posters.append(fetch_poster(movie_id))
+        # recommended_movies_posters.append(fetch_poster(movie_id))
     return recommended_movies,recommended_movies_posters
 
 st.title("Movie Recommender System")
@@ -40,4 +40,4 @@ if st.button('Recommend'):
     for i in range(5):
         with cols[i]:
             st.text(names[i])
-            st.image(posters[i])
+            # st.image(posters[i])
